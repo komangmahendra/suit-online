@@ -33,7 +33,7 @@ export default {
     
   },
   mounted(){
-    
+    console.log('coba play music');
     db.collection('rooms').onSnapshot((querySnapshot)=>{
       let arrTemp = []
       querySnapshot.forEach(doc => {

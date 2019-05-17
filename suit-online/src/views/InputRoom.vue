@@ -34,6 +34,10 @@
             background-repeat: no-repeat;background-size:cover
         ">
            <div style="width:100%">
+                <h1 style="color:white" class="mb-3"> Welcome <br>
+                     Rock Paper Scissor Master, <br>
+                     <span> <b>{{ namePlayer1 }}</b></span>
+                </h1>
                 <button class="btn btn-success btn-lg mb-3" style="width:80%;" @click="showModal">create Room >></button>
                 <button class="btn btn-primary btn-lg" style="width:80%;" @click="logout">Logout</button>
            </div>
@@ -58,7 +62,8 @@ export default {
         return {
             name : '',
             password : '',
-            listRoom: []
+            listRoom: [],
+            namePlayer1: localStorage.getItem('userName')
         }
     },
     computed : {
@@ -71,8 +76,19 @@ export default {
         this.getAllRoom()
     },
     methods: {
+        coba(){
+             db.collection('rooms').doc('hahaha')
+                .update({player1 : {name :'hahahaha'}})
+                .then( data => {
+                    console.log(data)
+                })
+                .catch( err => {
+                    console.log(err)
+                })
+        },
         logout(){
             localStorage.clear()
+            this.$router.push('/')
             firebase.auth().signOut().then(function() {
                 this.$swal('Bye bye ;D', 'see you soon again', 'success')
             }).catch(function(error) {

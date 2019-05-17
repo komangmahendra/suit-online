@@ -33,12 +33,19 @@
         style="background-image: url(https://www.setaswall.com/wp-content/uploads/2017/10/8-Bit-Nature-Lu-Wallpaper-1080x1920-768x1365.jpg);
             background-repeat: no-repeat;background-size:cover
         ">
-           
-            <button class="btn btn-success btn-lg" style="width:80%;" @click="showModal">create Room >></button>
+           <div style="width:100%">
+                <h1 style="color:white" class="mb-3"> Welcome <br>
+                     Rock Paper Scissors Master, <br>
+                     <span> <b>{{ namePlayer1 }}</b></span>
+                </h1>
+                <button class="btn btn-success btn-lg mb-3" style="width:80%;" @click="showModal">create Room >></button>
+                <button class="btn btn-primary btn-lg" style="width:80%;" @click="logout">Logout</button>
+                <button class="btn btn-primary btn-lg" style="width:80%;" @click.prevent="audioTest">Logout</button>
+           </div>
         </div>
 
         <div class="col-lg-6 col-xs-12">
-
+            <Lobby :theroom="listRoom"/>
         </div>
        
     </div>
@@ -50,14 +57,22 @@
 import  db   from '@/firebase/firebase.js';
 import firebase from 'firebase';
 import { mapState } from 'vuex';
+import router from '@/router.js'
+import Lobby from '@/components/Lobby.vue'
 
 export default {
     data(){
         return {
             name : '',
             password : '',
-            listRoom: []
+            listRoom: [],
+            namePlayer1: localStorage.getItem('userName'),
+            sound: '../assets/audio.mp3'
+            
         }
+    },
+    components : {
+        Lobby
     },
     computed : {
         ...mapState(['userName', 'isLogin']),
@@ -69,6 +84,40 @@ export default {
         this.getAllRoom()
     },
     methods: {
+        audioTest(){
+            if(this.sound) {
+                console.log('hahahahah', this.sound)
+                var audio = new Audio();
+                audio.src = this.sound
+                console.log(audio)
+                audio.play()
+                .then(res=>{
+
+                })
+                .catch(er=>{
+                    console.log(er)
+                })
+            }
+        },
+        coba(){
+             db.collection('rooms').doc('hahaha')
+                .update({ player1: {score: 80}})
+                .then( data => {
+                    console.log(data)
+                })
+                .catch( err => {
+                    console.log(err)
+                })
+        },
+        logout(){
+            localStorage.clear()
+            this.$router.push('/')
+            firebase.auth().signOut().then(function() {
+                this.$swal('Bye bye ;D', 'see you soon again', 'success')
+            }).catch(function(error) {
+                console.log(error)
+            });
+        },
         getAllRoom() {
             db.collection("rooms").onSnapshot(doc => {
                 this.listRoom = [];
@@ -91,9 +140,10 @@ export default {
             status: 0,
             current_player: 1,
             password: this.password,
-            // players:[this.name],
-            player1:{id:1,name:this.userName,score:0},
-            player2:{id:2,name:'',score:0}
+            player1:{id:1,name: localStorage.getItem('userName'),score:0},
+            player2:{id:2,name:'',score:0},
+            atk1 : [],
+            atk2: []
         }
         
         let flagDuplicate = false
@@ -108,34 +158,14 @@ export default {
         } else {
             db.collection('rooms').doc(this.name)
                 .set(obj)
-                .then(doc => {
-                    console.log(doc)
-                    console.log(this.listRoom)
-                    // this.room_id = doc.id;
-                    // this.roomCreated = true;
+                .then( () => {
+                    router.push({path : `/gamePage/${this.name}`})
                 })
                 .catch(function(error) {
                     //this.$swal('Ooppss..', `${error.Message}`, 'error')
                     console.error("Error writing document: ", error);
                 });
         }
-
-        //   db.collection("rooms")
-        //     .doc(this.room_id)
-        //     .update({
-        //       players: firebase.firestore.FieldValue.arrayUnion({
-        //         name: this.name,
-        //       })
-        //     })
-        //     .then(doc => {
-        //       localStorage.setItem('id',1)
-        //       console.log(doc)
-        //       //this.$router.push(`/room/${this.room_id}`);
-        //     })
-        //     .catch(function(error) {
-        //       console.error("Error writing document: ", error);
-        //     });
-        
       }
     }
 }

@@ -31,7 +31,9 @@ export default new Vuex.Store({
         appId: "1:525684810443:web:55dab42f1e0c8f40"
       };
       
-      firebase.initializeApp(firebaseConfig)
+      if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig)
+      }
       
         let provider = new firebase.auth.GoogleAuthProvider();
 
@@ -42,6 +44,7 @@ export default new Vuex.Store({
           localStorage.setItem('token', token)
 
           let user = result.user;
+          localStorage.setItem('userName', user.displayName)
           context.commit('setIsLogin', true)
           context.commit('setUserName', user.displayName)
           

@@ -5,10 +5,17 @@ import store from './store'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import BootstrapVue from 'bootstrap-vue'
+import VueSweetalert2 from 'vue-sweetalert2'
 
 Vue.use(BootstrapVue)
 
 Vue.config.productionTip = false
+
+const options = {
+  showConfirmButton: false,
+};
+
+Vue.use(VueSweetalert2, options);
 
 new Vue({
   router,

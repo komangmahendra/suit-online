@@ -24,7 +24,7 @@ const router =  new Router({
       component: () => import(/* webpackChunkName: "input-room" */ './views/InputRoom.vue')
     },
     {
-      path: '/gamePage',
+      path: '/gamePage/:room',
       name: 'gamePage',
       meta: { requiresAuth: true },
       // route level code-splitting

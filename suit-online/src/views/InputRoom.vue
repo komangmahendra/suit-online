@@ -29,13 +29,11 @@
     </b-modal>
 
     <div class="row" style="height:100%">
-        <div class="col-lg-6 col-xs-12" style="background-color:#ff8a5c">
-            <div class="row d-flex align-items-center justify-content-center" style="height:50%">
-                 <button class="btn btn-secondary btn-lg" style="width:80%;height:80%" @click="showModal">create Room >></button>
-            </div>
-            <div class="row d-flex align-items-center justify-content-center" style="height:50%">
-                 <button class="btn btn-secondary btn-lg" style="width:80%;height:80%" @click="showModal"> Play With BOT</button>
-            </div>
+        <div class=" col-lg-6 col-xs-12 row d-flex align-items-center justify-content-center"
+        style="background-image: url(https://www.setaswall.com/wp-content/uploads/2017/10/8-Bit-Nature-Lu-Wallpaper-1080x1920-768x1365.jpg);
+            background-repeat: no-repeat;background-size:cover
+        ">
+            <button class="btn btn-success btn-lg" style="width:80%;" @click="showModal">create Room >></button>
         </div>
 
         <div class="col-lg-6 col-xs-12">
@@ -48,24 +46,39 @@
 </template>
 
 <script>
-import { db }  from '@/firebase/firebase.js';
+import  db   from '@/firebase/firebase.js';
 import firebase from 'firebase';
-
+import { mapState } from 'vuex';
 
 export default {
     data(){
         return {
             name : '',
-            password : ''
+            password : '',
+            listRoom: []
         }
     },
     computed : {
-            nameState() {
+        ...mapState(['userName', 'isLogin']),
+        nameState() {
             return this.password.length > 2 ? true : false;
         },
     },
+    mounted(){
+        this.getAllRoom()
+        console.log(this.listRoom)
+        console.log(this.userName)
+    },
     methods: {
-        
+        getAllRoom() {
+            db.collection("rooms").onSnapshot(doc => {
+                this.listRoom = [];
+                doc.forEach(el => {
+                    let newObj = { id: el.id, ...el.data() };
+                    this.listRoom.push(newObj);
+                });
+            });
+        },
         showModal() {
             this.$refs["my-modal"].show();
         },
@@ -80,21 +93,32 @@ export default {
             current_player: 1,
             password: this.password,
             // players:[this.name],
-            player1:{id:1,name:this.name,score:0},
+            player1:{id:1,name:this.userName,score:0},
             player2:{id:2,name:'',score:0}
         }
+        
+        let flagDuplicate = false
+        this.listRoom.map( el => {
+            if(el.id == this.name) {
+                flagDuplicate = true
+            } 
+        })
 
-          db.collection('rooms').doc(this.name)
-            .set(obj)
-            .then(doc => {
-                console.log(doc)
-                // this.room_id = doc.id;
-                // this.roomCreated = true;
-            })
-            .catch(function(error) {
-                //this.$swal('Ooppss..', `${error.Message}`, 'error')
-                console.error("Error writing document: ", error);
-            });
+        if(flagDuplicate){
+            this.$swal('Duplicate room name', 'Choose another room name', 'error')
+        } else {
+            db.collection('rooms').doc(this.name)
+                .set(obj)
+                .then(doc => {
+                    console.log(doc)
+                    // this.room_id = doc.id;
+                    // this.roomCreated = true;
+                })
+                .catch(function(error) {
+                    //this.$swal('Ooppss..', `${error.Message}`, 'error')
+                    console.error("Error writing document: ", error);
+                });
+        }
 
         //   db.collection("rooms")
         //     .doc(this.room_id)

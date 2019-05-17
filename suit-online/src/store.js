@@ -43,13 +43,13 @@ export default new Vuex.Store({
 
           let user = result.user;
           context.commit('setIsLogin', true)
-          context.commit('setUserName', user)
+          context.commit('setUserName', user.displayName)
           
       }).catch((error) => {
         console.log(error)
       });
     },
 
-    
+
   }
 })

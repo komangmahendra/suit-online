@@ -1,30 +1,24 @@
 
 <template>
-<<<<<<< HEAD
-  <!-- <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
+  <div class="home">
+    <!-- <img alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div> -->
-  <div>
-  <InputRoom></InputRoom>
-=======
-  <div class="home">
-    <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
->>>>>>> initial commit
+  <gamePage></gamePage>
+  <!-- <InputRoom></InputRoom> -->
+  <!-- <div class="home">
+    <img alt="Vue logo" src="../assets/logo.png">
+    <HelloWorld msg="Welcome to Your Vue.js App"/> -->
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-<<<<<<< HEAD
-import HelloWorld from '@/components/HelloWorld.vue'
-import InputRoom from '@/views/InputRoom.vue'
-=======
 // import HelloWorld from '@/components/HelloWorld.vue'
-import db from '@/assets/config.js'
->>>>>>> initial commit
-
+import InputRoom from '@/views/InputRoom.vue'
+// import HelloWorld from '@/components/HelloWorld.vue'
+import db from '@/firebase/firebase.js'
+import gamePage from '@/views/gamePage.vue'
 export default {
   name: 'home',
   data(){
@@ -33,10 +27,9 @@ export default {
     }
   },
   components: {
-<<<<<<< HEAD
-    HelloWorld,
-    InputRoom
-=======
+    // HelloWorld,
+    InputRoom,
+    gamePage
     
   },
   mounted(){
@@ -50,7 +43,6 @@ export default {
       console.log(this.dummy);
       
     })
->>>>>>> initial commit
   }
 }
 </script>

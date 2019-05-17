@@ -33,8 +33,10 @@
         style="background-image: url(https://www.setaswall.com/wp-content/uploads/2017/10/8-Bit-Nature-Lu-Wallpaper-1080x1920-768x1365.jpg);
             background-repeat: no-repeat;background-size:cover
         ">
-           
-            <button class="btn btn-success btn-lg" style="width:80%;" @click="showModal">create Room >></button>
+           <div style="width:100%">
+                <button class="btn btn-success btn-lg mb-3" style="width:80%;" @click="showModal">create Room >></button>
+                <button class="btn btn-primary btn-lg" style="width:80%;" @click="logout">Logout</button>
+           </div>
         </div>
 
         <div class="col-lg-6 col-xs-12">
@@ -69,6 +71,14 @@ export default {
         this.getAllRoom()
     },
     methods: {
+        logout(){
+            localStorage.clear()
+            firebase.auth().signOut().then(function() {
+                this.$swal('Bye bye ;D', 'see you soon again', 'success')
+            }).catch(function(error) {
+                console.log(error)
+            });
+        },
         getAllRoom() {
             db.collection("rooms").onSnapshot(doc => {
                 this.listRoom = [];

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-fluid" style="height:100vh">
     <b-modal ref="my-modal" hide-footer title="Create Room">
       <div class="d-block text-center">
         <br>
@@ -28,14 +28,29 @@
       <b-button class="mt-2" variant="outline-warning" block @click="hideModal">Cancel</b-button>
     </b-modal>
 
-    <button class="btn btn-success btn-lg" @click="showModal">create Room</button>
+    <div class="row" style="height:100%">
+        <div class="col-lg-6 col-xs-12" style="background-color:#ff8a5c">
+            <div class="row d-flex align-items-center justify-content-center" style="height:50%">
+                 <button class="btn btn-secondary btn-lg" style="width:80%;height:80%" @click="showModal">create Room >></button>
+            </div>
+            <div class="row d-flex align-items-center justify-content-center" style="height:50%">
+                 <button class="btn btn-secondary btn-lg" style="width:80%;height:80%" @click="showModal"> Play With BOT</button>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-xs-12">
+
+        </div>
+       
+    </div>
+   
   </div>
 </template>
 
 <script>
-import db from '@/firebase/firebase.js';
+import { db }  from '@/firebase/firebase.js';
 import firebase from 'firebase';
-console.log(db)
+
 
 export default {
     data(){
@@ -50,6 +65,7 @@ export default {
         },
     },
     methods: {
+        
         showModal() {
             this.$refs["my-modal"].show();
         },
@@ -68,14 +84,15 @@ export default {
             player2:{id:2,name:'',score:0}
         }
 
-          db.collection("rooms")
-            .add(obj)
+          db.collection('rooms').doc(this.name)
+            .set(obj)
             .then(doc => {
-                this.room_id = doc.id;
-                this.roomCreated = true;
                 console.log(doc)
+                // this.room_id = doc.id;
+                // this.roomCreated = true;
             })
             .catch(function(error) {
+                //this.$swal('Ooppss..', `${error.Message}`, 'error')
                 console.error("Error writing document: ", error);
             });
 
@@ -99,4 +116,12 @@ export default {
     }
 }
 </script>
+
+
+<style scoped>
+    * {
+        font-family: 'Orbitron', sans-serif;
+    }
+</style>
+
 

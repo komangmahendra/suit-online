@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+    <link href="https://fonts.googleapis.com/css?family=Monoton|Orbitron" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.css" integrity="sha256-gVCm5mRCmW9kVgsSjQ7/5TLtXqvfCoxhdsjE6O1QLm8=" crossorigin="anonymous" />
     <div id="nav">
       <!-- <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> -->
@@ -15,17 +17,5 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
 }
 </style>

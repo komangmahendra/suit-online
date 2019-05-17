@@ -35,11 +35,12 @@
         ">
            <div style="width:100%">
                 <h1 style="color:white" class="mb-3"> Welcome <br>
-                     Rock Paper Scissor Master, <br>
+                     Rock Paper Scissors Master, <br>
                      <span> <b>{{ namePlayer1 }}</b></span>
                 </h1>
                 <button class="btn btn-success btn-lg mb-3" style="width:80%;" @click="showModal">create Room >></button>
                 <button class="btn btn-primary btn-lg" style="width:80%;" @click="logout">Logout</button>
+                <button class="btn btn-primary btn-lg" style="width:80%;" @click="coba">Logout</button>
            </div>
         </div>
 
@@ -78,7 +79,7 @@ export default {
     methods: {
         coba(){
              db.collection('rooms').doc('hahaha')
-                .update({player1 : {name :'hahahaha'}})
+                .update({ player1: {score: 80}})
                 .then( data => {
                     console.log(data)
                 })

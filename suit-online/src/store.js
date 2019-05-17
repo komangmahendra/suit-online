@@ -20,6 +20,7 @@ export default new Vuex.Store({
   },
   actions: {
     login(context){
+
       var firebaseConfig = {
         apiKey: "AIzaSyD3pDawLP3DHj3D8fGUA23iZZuOT0ly2tU",
         authDomain: "rps-hacktiv8.firebaseapp.com",
@@ -48,5 +49,7 @@ export default new Vuex.Store({
         console.log(error)
       });
     },
+
+    
   }
 })

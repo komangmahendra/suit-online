@@ -18,6 +18,7 @@ export default {
         isLogin(){
             if(this.isLogin === true){
                 this.$router.push('/input-room')
+                this.$swal('Yayyy', 'Login Success', 'success')
             }
         }
     },
@@ -28,6 +29,7 @@ export default {
     }
 }
 </script>
+
 
 
 <style scoped>

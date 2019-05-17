@@ -14,7 +14,7 @@
             <!-- <h1>  0 : 0 </h1> -->
             </div>
         </div>
-        <div v-if="ready == true" id="choicesBoard" class="card col-4 offset-4 d-flex justify-content-end"  style="text-align: center;background-color: orange ; height: 100px">
+        <div id="choicesBoard" class="card col-4 offset-4 d-flex justify-content-end"  style="text-align: center;background-color: orange ; height: 100px">
             <div class="row justify-content-around" >
               <div class="card row mt-2" style="background : none ; border: none">
               <i v-show="choice1 === 'r'" class="far fa-hand-rock fa-4x"></i>

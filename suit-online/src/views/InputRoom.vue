@@ -40,12 +40,12 @@
                 </h1>
                 <button class="btn btn-success btn-lg mb-3" style="width:80%;" @click="showModal">create Room >></button>
                 <button class="btn btn-primary btn-lg" style="width:80%;" @click="logout">Logout</button>
-                <button class="btn btn-primary btn-lg" style="width:80%;" @click.prevent="audioTest">Logout</button>
+                
            </div>
         </div>
 
         <div class="col-lg-6 col-xs-12">
-            <Lobby :theroom="listRoom"/>
+            <Lobby :room-list="listRoom"/>
         </div>
        
     </div>
@@ -68,7 +68,6 @@ export default {
             listRoom: [],
             namePlayer1: localStorage.getItem('userName'),
             sound: '../assets/audio.mp3'
-            
         }
     },
     components : {
@@ -84,31 +83,6 @@ export default {
         this.getAllRoom()
     },
     methods: {
-        audioTest(){
-            if(this.sound) {
-                console.log('hahahahah', this.sound)
-                var audio = new Audio();
-                audio.src = this.sound
-                console.log(audio)
-                audio.play()
-                .then(res=>{
-
-                })
-                .catch(er=>{
-                    console.log(er)
-                })
-            }
-        },
-        coba(){
-             db.collection('rooms').doc('hahaha')
-                .update({ player1: {score: 80}})
-                .then( data => {
-                    console.log(data)
-                })
-                .catch( err => {
-                    console.log(err)
-                })
-        },
         logout(){
             localStorage.clear()
             this.$router.push('/')

@@ -27,8 +27,8 @@
           style="width: 100%;"
           v-for="(room, i) in roomList"
           :key="i"
-          @click="showModal(room)"
-        >{{ room }}</p>
+          @click="showModal(room.id)"
+        >{{ room.id }}</p>
       </div>
     </div>
   </div>
@@ -39,10 +39,11 @@ import db from "@/firebase/firebase";
 import router from '@/router.js'
 
 export default {
+  props : ['roomList'],
   name: "Lobby",
   data() {
     return {
-      roomList: [],
+      //roomList: [],
       password: "",
       room : ''
     };
@@ -94,13 +95,13 @@ export default {
     }
   },
   mounted() {
-    db.collection("rooms").onSnapshot(querySnapshot => {
-      querySnapshot.forEach(element => {
-        this.roomList.push(element.id);
-      });
-    });
-    console.log("dapet nih");
-    console.log(this.roomList);
+    // db.collection("rooms").onSnapshot(querySnapshot => {
+    //   querySnapshot.forEach(element => {
+    //     this.roomList.push(element.id);
+    //   });
+    // });
+    // console.log("dapet nih");
+    // console.log(this.roomList);
   }
 };
 </script>
